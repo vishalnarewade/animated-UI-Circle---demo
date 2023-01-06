@@ -44,7 +44,8 @@
 					name: 'Great Wall of China',
 					img: 'Great-Wall-of-China-Beijing.webp',
 					social: ['https://en.wikipedia.org/wiki/Great_Wall_of_China']
-				}, {
+				}
+				, {
 					name: 'Chichén Itzá',
 					img: 'El-Castillo-pyramid-plaza-Toltec-state-Yucatan.webp',
 					social: ['https://en.wikipedia.org/wiki/Chichen_Itza']
@@ -71,7 +72,7 @@
 				}
 			]
 
-			document.documentElement.style.setProperty('--icons', list.length);
+			
 
 			const createEle = (tag, options = {}) => {
 				let ele = document.createElement(tag);
@@ -87,10 +88,14 @@
 			for (let i = 0; i < list.length; i++) {
 				const contentId = "content" + (i+1);
 				const divBxEle = createEle('div', {
-					"class": (i === 0) ? "imgBx active" : "imgBx",
+					"class": (i === 0) ? "imgBx blink_01 active" : "imgBx blink_01",
 					"style": "--i:" + (i+1),
 					"data-id": contentId
 				})
+
+				if (i != 0) divBxEle.setAttribute("style", divBxEle.style.cssText +"; animation-delay: "+ (i)+ "s;");
+
+				document.documentElement.style.setProperty('--icons', i + 1);
 				divBxEle.addEventListener('mouseover', showOnHover);
 
 				const imgBxEle = createEle('img', {
@@ -143,21 +148,25 @@
 		// }
 
 		function showOnHover(e) {
-				let imgBx = document.querySelectorAll('.imgBx');
-				let contentBx = document.querySelectorAll('.contentBx');
+			let imgBx = document.querySelectorAll('.imgBx');
+			let contentBx = document.querySelectorAll('.contentBx');
 
-				for (var i = 0; i < contentBx.length; i++) {
-					contentBx[i].className = 'contentBx';
-				}
-
-				if (this.dataset.id) document.getElementById(this.dataset.id).className = 'contentBx active';
-
-				for (var i = 0; i < imgBx.length; i++) {
-					imgBx[i].className = 'imgBx';
-				}
-
-				this.className = 'imgBx active';
+			for (var i = 0; i < contentBx.length; i++) {
+				contentBx[i].className = 'contentBx';
 			}
+
+			if (this.dataset.id) document.getElementById(this.dataset.id).className = 'contentBx active';
+
+			for (var i = 0; i < imgBx.length; i++) {
+				imgBx[i].className = 'imgBx blink_01';
+			}
+
+			this.className = 'imgBx blink_01 active';
+		}
+
+		window.addEventListener('resize', function () {
+			window.location.reload();
+		})
 		
 	</script>
 </body>

@@ -4,7 +4,7 @@
 	--width: 600px;
 	--height: 600px;
 	--position: 340px;
-	--icons: 8;
+	--icons: 0;
 	--color1: #e41f7a,
 }
 
@@ -54,6 +54,13 @@ body {
 	transform-origin: var(--position);
 	z-index: 100;
 	overflow: hidden;
+	opacity: 0;
+}
+.container .icon .imgBx.blink_01 {
+	/* animation: blink_01 2s linear infinite 1s; */
+	animation-name: blink_01;
+	animation-duration: 3s;
+	animation-fill-mode: forwards;
 }
 .container .icon .imgBx.active {
 	box-shadow: 0 0 0 4px #222,
@@ -70,6 +77,7 @@ body {
 	transform: rotate(calc(-360deg/var(--icons) * var(--i)));
 	transition: 0.5s;
 	filter: grayscale(1);
+	
 }
 .container .icon .imgBx.active img {
 	filter: grayscale(0);
@@ -94,15 +102,6 @@ body {
 	z-index: 1;
 	pointer-events: none;
 }
-
-@keyframes animate_01 {
-	from {
-		rotate:  0deg;
-	}
-	to {
-		rotate:  360deg;
-	}
-}
 .content::after {
 	content: '';
 	position: absolute;
@@ -115,16 +114,6 @@ body {
 	z-index: 1;
 	pointer-events: none;
 }
-
-@keyframes animate_02 {
-	from {
-		rotate:  360deg;
-	}
-	to {
-		rotate:  0deg;
-	}
-}
-
 .contentBx {
 	position: absolute;
 	transform: scale(0);
@@ -251,7 +240,7 @@ body {
 	opacity: 0.7;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 1000px) {
 	:root {
 		--width: 100%;
 		--height: 100%;
@@ -299,5 +288,30 @@ body {
 		position: relative;
 		margin-bottom: 10px;
 		transform: scale(1.0);
+	}
+}
+
+@keyframes animate_01 {
+	from {
+		rotate:  0deg;
+	}
+	to {
+		rotate:  360deg;
+	}
+}
+@keyframes animate_02 {
+	from {
+		rotate:  360deg;
+	}
+	to {
+		rotate:  0deg;
+	}
+}
+@keyframes blink_01 {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
 	}
 }
