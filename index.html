@@ -10,12 +10,11 @@
 	<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
 
 	<div class="branding">
-		<!-- <p class="company">7 Wonders of the World</p> -->
 		<div class="title">
 			<p data-text="7 Wonders of the World">7 Wonders of the World</p>
 		</div>
@@ -25,149 +24,8 @@
 		<div class="icon"></div>
 		<div class="content"></div>
 	</div>
-
-	<script>
-		const { innerWidth, innerHeight } = window;
-
-		// if (innerWidth < 1000 || innerHeight < 500) {
-		// 	document.write('<h1>Set screen size 1366*768</h1>');
-
-		// 	document.querySelector(".branding").remove();
-		// 	document.querySelector(".container").remove();
-		// } else {
-			const mainIcon = document.querySelectorAll('.container .icon');
-			const mainContent = document.querySelectorAll('.container .content');
-			const socials = ['fa-brands fa-wikipedia-w'];
-
-			var list = [
-				{
-					name: 'Great Wall of China',
-					img: 'Great-Wall-of-China-Beijing.webp',
-					social: ['https://en.wikipedia.org/wiki/Great_Wall_of_China']
-				}
-				, {
-					name: 'Chichén Itzá',
-					img: 'El-Castillo-pyramid-plaza-Toltec-state-Yucatan.webp',
-					social: ['https://en.wikipedia.org/wiki/Chichen_Itza']
-				}, {
-					name: 'Petra',
-					img: 'Khaznah-Petra-Jordan.webp',
-					social: ['https://en.wikipedia.org/wiki/Petra']
-				}, {
-					name: 'Machu Picchu',
-					img: 'Machu-Picchu.webp',
-					social: ['https://en.wikipedia.org/wiki/Machu_Picchu']
-				}, {
-					name: 'Christ the Redeemer',
-					img: 'statue-Christ-the-Redeemer-Rio-de-Janeiro.webp',
-					social: ['https://en.wikipedia.org/wiki/Christ_the_Redeemer_(statue)']
-				}, {
-					name: 'Colosseum',
-					img: 'Colosseum-Rome-Italy.webp',
-					social: ['https://en.wikipedia.org/wiki/Colosseum']
-				}, {
-					name: 'Taj Mahal',
-					img: 'Taj-Mahal-Agra-India.webp',
-					social: ['https://en.wikipedia.org/wiki/Taj_Mahal']
-				}
-			]
-
-			
-
-			const createEle = (tag, options = {}) => {
-				let ele = document.createElement(tag);
-				let keys = Object.keys(options);
-				
-				for (let i = 0; i < keys.length; i++) {
-					ele.setAttribute(keys[i], options[keys[i]]);
-				}
-
-				return ele;
-			}
-
-			for (let i = 0; i < list.length; i++) {
-				const contentId = "content" + (i+1);
-				const divBxEle = createEle('div', {
-					"class": (i === 0) ? "imgBx blink_01 active" : "imgBx blink_01",
-					"style": "--i:" + (i+1),
-					"data-id": contentId
-				})
-
-				if (i != 0) divBxEle.setAttribute("style", divBxEle.style.cssText +"; animation-delay: "+ (i)+ "s;");
-
-				document.documentElement.style.setProperty('--icons', i + 1);
-				divBxEle.addEventListener('mouseover', showOnHover);
-
-				const imgBxEle = createEle('img', {
-					"src": list[i].img,
-					"alt": "photo"
-				})
-
-				divBxEle.appendChild(imgBxEle);
-				mainIcon[0].appendChild(divBxEle);
-
-				const contentBxEle = createEle('div', {
-					"class": (i === 0) ? "contentBx active" : "contentBx",
-					"id": contentId
-				})
-				const contentCardEle = createEle('div', { "class": "card" });			
-				const contentImgBxEle = createEle('div', { "class": "imgBx" });
-				const contentImgBxImgEle = createEle('img', { "src": list[i].img, "alt": "photo" });
-				contentImgBxEle.appendChild(contentImgBxImgEle);
-				contentCardEle.appendChild(contentImgBxEle);
-
-				const contenttextBxEle = createEle('div', { "class": "textBx" });
-				let contentH2Ele = createEle('h2');
-				let contentNameEle = createEle('p');
-				contentNameEle.textContent = list[i].name;
-				let contentRoleEle = createEle('span');
-				contentRoleEle.textContent = list[i].role;
-
-				contentH2Ele.appendChild(contentNameEle);
-				contentH2Ele.appendChild(contentRoleEle);
-				contenttextBxEle.appendChild(contentH2Ele);
-
-				const contentUlEle = createEle('ul', { "class": "sci" });
-
-				for (let j = 0; j < socials.length; j++) {
-					const contentLiEle = createEle('li');
-					const contentLiAEle = createEle('a', { "href": list[i].social[j] });
-					const contentLiIEle = createEle('i', { "class": socials[j] });
-
-					contentLiAEle.appendChild(contentLiIEle);
-					contentLiEle.appendChild(contentLiAEle);
-					contentUlEle.appendChild(contentLiEle);
-				}
-
-				contenttextBxEle.appendChild(contentUlEle);
-				contentCardEle.appendChild(contenttextBxEle);
-				
-				contentBxEle.appendChild(contentCardEle);
-				mainContent[0].appendChild(contentBxEle);
-			}
-		// }
-
-		function showOnHover(e) {
-			let imgBx = document.querySelectorAll('.imgBx');
-			let contentBx = document.querySelectorAll('.contentBx');
-
-			for (var i = 0; i < contentBx.length; i++) {
-				contentBx[i].className = 'contentBx';
-			}
-
-			if (this.dataset.id) document.getElementById(this.dataset.id).className = 'contentBx active';
-
-			for (var i = 0; i < imgBx.length; i++) {
-				imgBx[i].className = 'imgBx blink_01';
-			}
-
-			this.className = 'imgBx blink_01 active';
-		}
-
-		window.addEventListener('resize', function () {
-			window.location.reload();
-		})
-		
-	</script>
+	
+	<script src="assets/js/data.js"></script>
+	<script src="assets/js/script.js"></script>
 </body>
 </html>
